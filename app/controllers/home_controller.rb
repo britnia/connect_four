@@ -40,6 +40,22 @@ def connect_four_by_row? board
 end
 
 def connect_four_by_diagonal? board
+  #found some snippet online about how to turn an array diagonal
+
+  padding = board.size - 1
+  padded_matrix = []
+
+  board.each do |row|
+    inverse_padding = board.size - padding
+    padded_matrix << ([nil] * inverse_padding) + row + ([nil] * padding)
+    padding -= 1
+  end
+  diagonal_matrix = padded_matrix.transpose.map(&:compact)
+  diagonal_matrix_flip = padded_matrix.map(&:compact)
+
+  try_1 = connect_four_by_column? diagonal_matrix
+  return try_1 unless try_1 == false
+  connect_four_by_column? diagonal_matrix_flip
 end
 
 #Methods needed:
