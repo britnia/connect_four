@@ -14,17 +14,17 @@ class HomeController < ApplicationController
     ['e','e','e','e','e','e']
   ]
 
-def connect_four_by_column? board
+def connect_four_by_column board
   board.each do |column|
     return false if column.first == 'e'
     count = 0
     last = column.first
     while !column.empty? do
       current = column.shift
-      next if current == 'e'
-      if current = last
+      next if current == 'e' || current == 0
+      if current == last
         count += 1
-        return true if count == 4
+        return current if count == 4
       else
         count = 1
       end
@@ -34,38 +34,30 @@ def connect_four_by_column? board
   false
 end
 
-def connect_four_by_row? board
+def connect_four_by_row board
   board = board.transpose
-  connect_four_by_column? board
+  connect_four_by_column board
 end
 
-def connect_four_by_diagonal? board
-  #found some snippet online about how to turn an array diagonal
-
-  padding = board.size - 1
-  padded_matrix = []
-
-  board.each do |row|
-    inverse_padding = board.size - padding
-    padded_matrix << ([nil] * inverse_padding) + row + ([nil] * padding)
-    padding -= 1
+def connect_four_by_diagonal board
+  [board, board.map(&:reverse)].inject([]) do |diagonals, matrix|
+    ((-matrix.count + 1)..matrix.first.count).each do |offet_index|
+      diagonal = []
+      (matrix.count).times do |row_index|
+        col_index = offet_index + row_index
+        diagonal << matrix[row_index][col_index] if col_index >= 0
+      end
+      diagonals << diagonal.compact if diagonal.compact.count > 1
+    end
   end
-  diagonal_matrix = padded_matrix.transpose.map(&:compact)
-  diagonal_matrix_flip = padded_matrix.map(&:compact)
 
-  try_1 = connect_four_by_column? diagonal_matrix
+
+
+  try_1 = connect_four_by_column diagonals
   return try_1 unless try_1 == false
-  connect_four_by_column? diagonal_matrix_flip
+  connect_four_by_column diagonals.transpose
 end
 
-#Methods needed:
-  #Something that replaces the first element in a stack that isn't empty
-  #Something that checks for 4 in a rows by column
-  #Something that checks for 4 in a rows by row
-  #Something that checks for 4 in a rows by diagonal -> probably the hardest thing????
-  #
-  #
-  #
 #Basic workflow of a turn
   #player selects which column they want to drop the piece into
   #the first element in the column array that is empty (e) has it's value changed to match the current player's color

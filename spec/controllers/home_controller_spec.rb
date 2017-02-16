@@ -22,7 +22,7 @@ describe HomeController do
       ]
     }
 
-    describe "#connect_four_by_column?" do
+    describe "#connect_four_by_column" do
       let(:column_winner_board){
         [
           ['r','e','e','e','e','e'],
@@ -35,14 +35,14 @@ describe HomeController do
         ]
       }
       it "returns true when there is a connect four" do
-        expect(subject.connect_four_by_column? column_winner_board).to be true
+        expect(subject.connect_four_by_column column_winner_board).to eq 'r'
       end
       it "returns false when there is not a connect four" do
-        expect(subject.connect_four_by_column? loser_board).to be false
+        expect(subject.connect_four_by_column loser_board).to be false
       end
     end
 
-    describe "#connect_four_by_row?" do
+    describe "#connect_four_by_row" do
       let(:row_winner_board){
         [
           ['r','b','e','e','e','e'],
@@ -55,14 +55,14 @@ describe HomeController do
         ]
       }
       it "returns true when there is a connect four" do
-        expect(subject.connect_four_by_row? row_winner_board).to be true
+        expect(subject.connect_four_by_row row_winner_board).to eq 'r'
       end
       it "returns false when there is not a connect four" do
-        expect(subject.connect_four_by_row? loser_board).to be false
+        expect(subject.connect_four_by_row loser_board).to be false
       end
     end
 
-    describe "#connect_four_by_diagonal?" do
+    describe "#connect_four_by_diagonal" do
       let(:diagonal_winner_board){
         [
           ['b','e','e','e','e','e'],
@@ -75,10 +75,10 @@ describe HomeController do
         ]
       }
       it "returns true when there is a connect four" do
-        expect(subject.connect_four_by_diagonal? diagonal_winner_board).to be true
+        expect(subject.connect_four_by_diagonal diagonal_winner_board).to eq 'b'
       end
       it "returns false when there is not a connect four" do
-        expect(subject.connect_four_by_diagonal? loser_board).to be false
+        expect(subject.connect_four_by_diagonal loser_board).to be false
       end
     end
 
