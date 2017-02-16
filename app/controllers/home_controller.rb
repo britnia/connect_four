@@ -67,7 +67,7 @@ end
 
 def turn player, input
   @board = drop_piece @board, player, input
-  winner? @board
+  return "Player #{player} wins!" if winner? @board
 end
 #Basic workflow of a turn
   #player selects which column they want to drop the piece into
