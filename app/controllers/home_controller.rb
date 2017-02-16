@@ -35,6 +35,8 @@ def connect_four_by_column? board
 end
 
 def connect_four_by_row? board
+  board = board.transpose
+  connect_four_by_column? board
 end
 
 def connect_four_by_diagonal? board
