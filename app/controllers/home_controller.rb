@@ -40,17 +40,7 @@ def connect_four_by_row board
 end
 
 def connect_four_by_diagonal board
-  [board, board.map(&:reverse)].inject([]) do |diagonals, matrix|
-    ((-matrix.count + 1)..matrix.first.count).each do |offet_index|
-      diagonal = []
-      (matrix.count).times do |row_index|
-        col_index = offet_index + row_index
-        diagonal << matrix[row_index][col_index] if col_index >= 0
-      end
-      diagonals << diagonal.compact if diagonal.compact.count > 1
-    end
-  end
-
+# other attempts a bust. come back to this later
 
 
   try_1 = connect_four_by_column diagonals
