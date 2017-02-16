@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     ['e','e','e','e','e','e']
   ]
 
-def connect_four_by_column board
+def connect_four_by_column? board
   board.each do |column|
     return false if column.first == 'e'
     count = 0
@@ -24,7 +24,7 @@ def connect_four_by_column board
       next if current == 'e' || current == 0
       if current == last
         count += 1
-        return current if count == 4
+        return true if count == 4
       else
         count = 1
       end
@@ -34,12 +34,12 @@ def connect_four_by_column board
   false
 end
 
-def connect_four_by_row board
+def connect_four_by_row? board
   board = board.transpose
   connect_four_by_column board
 end
 
-def connect_four_by_diagonal board
+def connect_four_by_diagonal? board
 # other attempts a bust. come back to this later
 
 
@@ -48,6 +48,27 @@ def connect_four_by_diagonal board
   connect_four_by_column diagonals.transpose
 end
 
+def drop_piece board, player, input
+  board[input].each_index do |i|
+    if board[i] == 'e'
+      board[i] = player
+      return board
+    end
+    board
+  end
+end
+
+def winner? board
+  return true if connect_four_by_column? board
+  return true if connect_four_by_row? board
+  return true if connect_four_by_diagonal? board
+  false
+end
+
+def turn player, input
+  @board = drop_piece @board, player, input
+  winner? @board
+end
 #Basic workflow of a turn
   #player selects which column they want to drop the piece into
   #the first element in the column array that is empty (e) has it's value changed to match the current player's color
