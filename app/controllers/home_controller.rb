@@ -4,16 +4,41 @@ class HomeController < ApplicationController
   # e = empty
   # r = red
   # b = black
-  @game_board = {
-    col_A:['e','e','e','e','e','e'],
-    col_B:['e','e','e','e','e','e'],
-    col_C:['e','e','e','e','e','e'],
-    col_D:['e','e','e','e','e','e'],
-    col_E:['e','e','e','e','e','e'],
-    col_F:['e','e','e','e','e','e'],
-    col_G:['e','e','e','e','e','e'],
-  }
+  @game_board = [
+    ['e','e','e','e','e','e'],
+    ['e','e','e','e','e','e'],
+    ['e','e','e','e','e','e'],
+    ['e','e','e','e','e','e'],
+    ['e','e','e','e','e','e'],
+    ['e','e','e','e','e','e'],
+    ['e','e','e','e','e','e']
+  ]
 
+def connect_four_by_column? board
+  board.each do |column|
+    return false if column.first == 'e'
+    count = 0
+    last = column.first
+    while !column.empty? do
+      current = column.shift
+      next if current == 'e'
+      if current = last
+        count += 1
+        return true if count == 4
+      else
+        count = 1
+      end
+      last = current
+    end
+  end
+  false
+end
+
+def connect_four_by_row? board
+end
+
+def connect_four_by_diagonal? board
+end
 
 #Methods needed:
   #Something that replaces the first element in a stack that isn't empty
