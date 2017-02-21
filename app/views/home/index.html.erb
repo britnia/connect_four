@@ -1,2 +1,15 @@
 <h1>Welcome to Connect Four</h1>
-<div>The game board will go here!!!!</div>
+
+<%# ul not table because it isn't 1997 %>
+<%# need some logic here to make the letters show up as pretty color dots or empty spaces (white dots!) %>
+<%# format the lists to be a grid %>
+<div id="game_board">
+  <% @game_board.each_index do |i| %>
+    <ul class="columns" id="column_<%= i %>">
+      <% @game_board[i].each_index do |j| %>
+        <li class="slot"><%= @game_board[i][j] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+</div>

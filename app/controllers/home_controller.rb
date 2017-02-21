@@ -4,15 +4,8 @@ class HomeController < ApplicationController
   # e = empty
   # r = red
   # b = black
-  @game_board = [
-    ['e','e','e','e','e','e'],
-    ['e','e','e','e','e','e'],
-    ['e','e','e','e','e','e'],
-    ['e','e','e','e','e','e'],
-    ['e','e','e','e','e','e'],
-    ['e','e','e','e','e','e'],
-    ['e','e','e','e','e','e']
-  ]
+
+  #   0   1   2   3   4   5 <- rows
 
 def connect_four_by_column? board
   board.each do |column|
@@ -36,22 +29,20 @@ end
 
 def connect_four_by_row? board
   board = board.transpose
-  connect_four_by_column board
+  connect_four_by_column? board
 end
 
 def connect_four_by_diagonal? board
-# other attempts a bust. come back to this later
+ #get all the diagonals into a map
+ #do connect four by column on the map
 
-
-  try_1 = connect_four_by_column diagonals
-  return try_1 unless try_1 == false
-  connect_four_by_column diagonals.transpose
 end
 
 def drop_piece board, player, input
+  #where input = the column number 0-6
   board[input].each_index do |i|
-    if board[i] == 'e'
-      board[i] = player
+    if board[input][i] == 'e'
+      board[input][i] = player
       return board
     end
     board
@@ -61,13 +52,38 @@ end
 def winner? board
   return true if connect_four_by_column? board
   return true if connect_four_by_row? board
-  return true if connect_four_by_diagonal? board
+  #return true if connect_four_by_diagonal? board
   false
 end
 
 def turn player, input
   @board = drop_piece @board, player, input
   return "Player #{player} wins!" if winner? @board
+end
+
+def set_first_player
+  return 'b' if rand(2) == 1
+  'r'
+
+end
+
+def player_switch player
+  return 'b' if player == 'r'
+  'r'
+end
+
+def game
+  #randomize who starts
+  current_player = set_first_player
+  # computer is always red. Player is always black.
+  while winner? @board == false do
+    column = 0 #get user input here
+    #TODO worry about full columns
+    @board = drop_piece @board, current_player, column
+    current_player = switch_player current_player
+  end
+
+
 end
 #Basic workflow of a turn
   #player selects which column they want to drop the piece into
@@ -79,5 +95,14 @@ end
   #if no winner, repeat all this for the next player
 
   def index
+    @game_board = [
+      ['e','e','e','e','e','e'], # 0
+      ['e','e','e','e','e','e'], # 1
+      ['e','e','e','e','e','e'], # 2
+      ['e','e','e','e','e','e'], # 3
+      ['e','e','e','e','e','e'], # 4
+      ['e','e','e','e','e','e'], # 5
+      ['e','e','e','e','e','e']  # 6
+    ]
   end
 end
