@@ -1,5 +1,7 @@
-<h1>Welcome to Connect Four</h1>
-
+<div id="header">
+  <h1>Connect Four</h1>
+  <h4>Computer is red player. You are the black player. Select which column you'd like to drop your piece into.</h4>
+</div>
 <%# ul not table because it isn't 1997 %>
 <%# need some logic here to make the letters show up as pretty color dots or empty spaces (white dots!) %>
 <%# format the lists to be a grid %>
@@ -7,9 +9,28 @@
   <% @game_board.each_index do |i| %>
     <ul class="columns" id="column_<%= i %>">
       <% @game_board[i].each_index do |j| %>
-        <li class="slot"><%= @game_board[i][j] %></li>
+        <% case @game_board[i][j] %>
+        <% when 'e' %>
+            <% slot_color_class = 'empty_slot'%>
+        <% when 'b' %>
+            <% slot_color_class = 'black_slot'%>
+        <% else %>
+            <% slot_color_class = 'red_slot'%>
+        <% end %>
+        <li class="slot <%= slot_color_class %>"><%= @game_board[i][j] %></li>
       <% end %>
     </ul>
   <% end %>
-
+</div>
+<div id ="options">
+  <form method="user_input">
+    <input type="radio" name="column" value="0">
+    <input type="radio" name="column" value="1">
+    <input type="radio" name="column" value="2">
+    <input type="radio" name="column" value="3">
+    <input type="radio" name="column" value="4">
+    <input type="radio" name="column" value="5">
+    <input type="radio" name="column" value="6"><br>
+    <input type="submit">
+  </form>
 </div>

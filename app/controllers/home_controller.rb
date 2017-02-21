@@ -77,7 +77,7 @@ def game
   current_player = set_first_player
   # computer is always red. Player is always black.
   while winner? @board == false do
-    column = 0 #get user input here
+    column =  params['column']
     #TODO worry about full columns
     @board = drop_piece @board, current_player, column
     current_player = switch_player current_player
@@ -96,7 +96,7 @@ end
 
   def index
     @game_board = [
-      ['e','e','e','e','e','e'], # 0
+      ['e','e','r','e','e','e'], # 0
       ['e','e','e','e','e','e'], # 1
       ['e','e','e','e','e','e'], # 2
       ['e','e','e','e','e','e'], # 3
