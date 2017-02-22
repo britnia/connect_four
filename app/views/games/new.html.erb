@@ -1,0 +1,18 @@
+<%= form_for :game, url: games_path do |f| %>
+  <p>
+    <%= f.radio_button :column, '0' %>
+    <%= f.radio_button :column, '1' %>
+    <%= f.radio_button :column, '2' %>
+    <%= f.radio_button :column, '3' %>
+    <%= f.radio_button :column, '4' %>
+    <%= f.radio_button :column, '5' %>
+    <%= f.radio_button :column, '6' %>
+  </p>
+  <p>
+    <%= f.label :player %><br>
+    <%= f.text_field :player %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
