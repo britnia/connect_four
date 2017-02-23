@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
   serialize :board, Array
-  attr_accessor :column
+  attr_accessor :column, :current_player
 
    before_create :init
    before_update :drop_piece
@@ -22,7 +22,7 @@ class Game < ApplicationRecord
      col = self.column.to_i
      self.board = working_board[col].each_index do |i|
                     if working_board[col][i] == 'e'
-                      working_board[col][i] = 'b'#player
+                      working_board[col][i] = self.current_player # 'b' or 'r'
                       return working_board
                     end
                     working_board

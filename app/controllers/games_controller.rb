@@ -29,14 +29,27 @@ class GamesController < ApplicationController
   end
 
   def update
+
     @game = Game.find(params[:id])
-    if @game.update(game_params)
+    if @game.update(game_params.merge!({current_player: 'b'}))
       flash[:success] = 'Game updated successfully'
-      if winner? Game.find(params[:id]).board
+      @game = Game.find(params[:id])
+      if winner? @game.board #player wins
         flash[:success] = 'Winner!'
         render :show
         #some winner actions here
-      else
+      else #computer's turn
+        @game = Game.find(params[:id])
+        computer_column = rand(7)
+        if @game.update(game_params.merge!({column: computer_column, current_player: 'r'}))
+          flash[:success] = 'Game updated successfully'
+          computer_board = Game.find(params[:id]).board
+          if winner? computer_board #computer wins
+            flash[:success] = 'Computer Wins!'
+            render :show
+            #some winner actions here
+          end
+        end
         render :edit
       end
     else
@@ -58,7 +71,10 @@ class GamesController < ApplicationController
 
 private
   def game_params
-    params.require(:game).permit(:player, :board, :column)
+    params.require(:game).permit(:player, :board, :column, :current_player)
+  end
+
+  def computer_params p
   end
 
 end
