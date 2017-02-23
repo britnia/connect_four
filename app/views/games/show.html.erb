@@ -1,1 +1,30 @@
-Filler Text
+<div>
+<% case @game.won %>
+<% when true %>
+  <%= "Congratualtions, #{@game.player}. You won!!!"%>
+<% when false %>
+  <%= "Sorry, the computer won. Won't be long until the machines take over!" %>
+<% else %>
+  <%= "This game is still in progress! It's anyone's fight!" %>
+  <a href="/games/<%=@game.id%>/edit"><button>Continue Game</button></a>
+<% end %>
+</div>
+
+
+<div class="game_board">
+  <% @game.board.each_index do |i| %>
+    <ul class="columns">
+      <% @game.board[i].each_index do |j| %>
+        <% case @game.board[i][j] %>
+        <% when 'e' %>
+            <% slot_color_class = 'empty_slot'%>
+        <% when 'b' %>
+            <% slot_color_class = 'black_slot'%>
+        <% else %>
+            <% slot_color_class = 'red_slot'%>
+        <% end %>
+        <li class="slot <%= slot_color_class %>"><%= @game.board[i][j] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

@@ -19,22 +19,21 @@ class GamesController < ApplicationController
     end
   end
 
-# do i need show????
-  def show
+  def show #using show for game over
     @game = Game.find(params[:id])
   end
 
-  def edit
+  def edit #use edit for taking turns
     @game = Game.find(params[:id])
   end
 
-  def update
-
+  def update #does the player turn and the computer turn
     @game = Game.find(params[:id])
     if @game.update(game_params.merge!({current_player: 'b'}))
       flash[:success] = 'Game updated successfully'
       @game = Game.find(params[:id])
       if winner? @game.board #player wins
+        @game.update(game_params.merge!({won: true}))
         flash[:success] = 'Winner!'
         render :show
         #some winner actions here
@@ -45,6 +44,7 @@ class GamesController < ApplicationController
           flash[:success] = 'Game updated successfully'
           computer_board = Game.find(params[:id]).board
           if winner? computer_board #computer wins
+            @game.update(game_params.merge!({won: false}))
             flash[:success] = 'Computer Wins!'
             render :show
             #some winner actions here
@@ -72,9 +72,6 @@ class GamesController < ApplicationController
 private
   def game_params
     params.require(:game).permit(:player, :board, :column, :current_player)
-  end
-
-  def computer_params p
   end
 
 end

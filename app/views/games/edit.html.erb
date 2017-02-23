@@ -5,9 +5,9 @@
 <%# ul not table because it isn't 1997 %>
 <%# need some logic here to make the letters show up as pretty color dots or empty spaces (white dots!) %>
 <%# format the lists to be a grid %>
-<div id="game_board">
+<div class="game_board">
   <% @game.board.each_index do |i| %>
-    <ul class="columns" id="column_<%= i %>">
+    <ul class="columns">
       <% @game.board[i].each_index do |j| %>
         <% case @game.board[i][j] %>
         <% when 'e' %>
