@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+
+  include Concerns::GameRules
 #saving this here just to have it somewhere handy
 
   def new
@@ -30,7 +32,13 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     if @game.update(game_params)
       flash[:success] = 'Game updated successfully'
-      render :edit
+      if winner? Game.find(params[:id]).board
+        flash[:success] = 'Winner!'
+        render :show
+        #some winner actions here
+      else
+        render :edit
+      end
     else
       flash[:error] = 'There is a problem updating the game'
       render :edit
