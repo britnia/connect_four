@@ -1,0 +1,49 @@
+body {
+  text-align: center;
+}
+div {
+  margin-left: auto;
+  margin-right: auto;
+}
+#header {
+  width: 800px;
+}
+#game_board {
+  width: 700px;
+  height: 600px;
+  background-color: blue;
+}
+.columns {
+  list-style: none;
+  display: inline-block;
+  width: 95px;
+  padding: 0;
+  transform: rotate(180deg);
+}
+li {
+  height: 95px;
+  border-radius: 50%;
+  transform: rotate(-180deg);
+}
+.empty_slot {
+  background-color: white;
+  color: white;
+}
+.black_slot {
+  background-color: black;
+  color: black;
+}
+.red_slot {
+  background-color: red;
+  color: red;
+}
+.edit_game input {
+  width:50px;
+  margin-left: 35px;
+  margin-right: 10px;
+
+}
+.edit_game input:last-child{
+  width:80px;
+  margin-left: 0;
+}

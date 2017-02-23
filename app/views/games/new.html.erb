@@ -1,13 +1,10 @@
-<%= form_for :game, url: games_path do |f| %>
-  <p>
-    <%= f.radio_button :column, '0' %>
-    <%= f.radio_button :column, '1' %>
-    <%= f.radio_button :column, '2' %>
-    <%= f.radio_button :column, '3' %>
-    <%= f.radio_button :column, '4' %>
-    <%= f.radio_button :column, '5' %>
-    <%= f.radio_button :column, '6' %>
-  </p>
+<div id="header">
+  <h1>Connect Four</h1>
+  <h4>Computer is red player. You are the black player. Enter your name to begin the game!</h4>
+</div>
+
+
+<%= form_for @game do |f| %>
   <p>
     <%= f.label :player %><br>
     <%= f.text_field :player %>
