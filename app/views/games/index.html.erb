@@ -1,0 +1,21 @@
+<h1> Connect Four </h1>
+<a href="/games/new"> <button >  Start a new game! </button> </a>
+
+<% if @games %>
+  <ul>
+    <% @games.each do |game| %>
+    <% case game.won %>
+    <% when true %>
+      <% game_status = "Won" %>
+    <% when false %>
+      <% game_status = "Lost" %>
+    <% else %>
+      <% game_status = "In Progress" %>
+    <% end %>
+    <% game_display_name = "Game ##{game.id}. Player: #{game.player} Status: #{game_status}" %>
+    <li>
+      <%= link_to(game_display_name, game_path(game.id)) %>
+    </li>
+  <% end %>
+  </ul>
+<% end %>

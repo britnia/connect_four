@@ -1,11 +1,11 @@
 <div>
 <% case @game.won %>
 <% when true %>
-  <%= "Congratualtions, #{@game.player}. You won!!!"%>
+  <h4><%= "Congratualtions, #{@game.player}. You won!!!"%></h4>
 <% when false %>
-  <%= "Sorry, the computer won. Won't be long until the machines take over!" %>
+  <h4><%= "Sorry, the computer won. Won't be long until the machines take over!" %></h4>
 <% else %>
-  <%= "This game is still in progress! It's anyone's fight!" %>
+  <h4><%= "This game is still in progress! It's anyone's fight!" %></h4>
   <a href="/games/<%=@game.id%>/edit"><button>Continue Game</button></a>
 <% end %>
 </div>

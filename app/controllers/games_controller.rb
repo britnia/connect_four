@@ -1,7 +1,10 @@
 class GamesController < ApplicationController
 
   include Concerns::GameRules
-#saving this here just to have it somewhere handy
+
+  def index
+    @games = Game.all
+  end
 
   def new
     @game = Game.new
@@ -19,35 +22,34 @@ class GamesController < ApplicationController
     end
   end
 
-  def show #using show for game over
+  def show
     @game = Game.find(params[:id])
   end
 
-  def edit #use edit for taking turns
+  def edit
     @game = Game.find(params[:id])
   end
 
-  def update #does the player turn and the computer turn
+#TODO DRY up this update block
+  def update
     @game = Game.find(params[:id])
     if @game.update(game_params.merge!({current_player: 'b'}))
       flash[:success] = 'Game updated successfully'
       @game = Game.find(params[:id])
-      if winner? @game.board #player wins
+      if winner? @game.board
         @game.update(game_params.merge!({won: true}))
         flash[:success] = 'Winner!'
         render :show
-        #some winner actions here
-      else #computer's turn
+      else
         @game = Game.find(params[:id])
         computer_column = rand(7)
         if @game.update(game_params.merge!({column: computer_column, current_player: 'r'}))
           flash[:success] = 'Game updated successfully'
           computer_board = Game.find(params[:id]).board
-          if winner? computer_board #computer wins
+          if winner? computer_board
             @game.update(game_params.merge!({won: false}))
             flash[:success] = 'Computer Wins!'
             render :show
-            #some winner actions here
           end
         end
         render :edit
