@@ -2,7 +2,7 @@
 <a href="/games/new"> <button >  Start a new game! </button> </a>
 
 <% if @games %>
-  <ul>
+  <ul class="game_index">
     <% @games.each do |game| %>
     <% case game.won %>
     <% when true %>

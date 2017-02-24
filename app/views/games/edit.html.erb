@@ -1,10 +1,5 @@
-<div id="header">
-  <h1>Connect Four</h1>
-  <h4>Computer is red player. You are the black player. Select which column you'd like to drop your piece into.</h4>
-</div>
-<%# ul not table because it isn't 1997 %>
-<%# need some logic here to make the letters show up as pretty color dots or empty spaces (white dots!) %>
-<%# format the lists to be a grid %>
+<h4>Computer is red player. You are the black player. Select which column you'd like to drop your piece into.</h4>
+
 <div class="game_board">
   <% @game.board.each_index do |i| %>
     <ul class="columns">
@@ -34,6 +29,6 @@
     <%= f.radio_button :column, '6' %>
   </p>
   <p>
-    <%= f.submit %>
+    <%= f.submit "DROP PIECE"%>
   </p>
 <% end %>

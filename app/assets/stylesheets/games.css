@@ -1,5 +1,11 @@
 body {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
+  background-color: black;
+  color: white;
+}
+h1 {
+  font-family: 'Slabo 27px', serif;
 }
 div {
   margin-left: auto;
@@ -11,7 +17,7 @@ div {
 .game_board {
   width: 700px;
   height: 600px;
-  background-color: blue;
+  background-color: #708090;
 }
 .columns {
   list-style: none;
@@ -20,22 +26,33 @@ div {
   padding: 0;
   transform: rotate(180deg);
 }
-li {
+.game_index {
+  list-style: none;
+}
+.game_index li{
+  list-style: none;
+  padding: 5px;
+}
+.game_index li a{
+  text-decoration: none;
+  color: #d3d3d3
+}
+.slot {
   height: 95px;
   border-radius: 50%;
   transform: rotate(-180deg);
 }
 .empty_slot {
-  background-color: white;
-  color: white;
+  background-color: #d3d3d3;
+  color: #d3d3d3;
 }
 .black_slot {
   background-color: black;
   color: black;
 }
 .red_slot {
-  background-color: red;
-  color: red;
+  background-color: maroon;
+  color: maroon;
 }
 .edit_game input {
   width:50px;
