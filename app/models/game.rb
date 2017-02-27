@@ -29,5 +29,4 @@ class Game < ApplicationRecord
                   end
     puts self.board
    end
-
 end

@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-
   include Concerns::GameRules
 
   def index
@@ -90,5 +89,4 @@ private
   def updatable_column? board, column
     board[column.to_i].include? 'e'
   end
-
 end
