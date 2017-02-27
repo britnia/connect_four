@@ -43,7 +43,7 @@ class GamesController < ApplicationController
         if winner? @game.board
           @game.update(game_params.merge!({won: true}))
           flash[:success] = 'Winner!'
-          render :show
+          render :show and return
         else #if the the user didnt win its the computer's turn
           @game = Game.find(params[:id])
           computer_column = rand(7) #make sure the column the computer chose is updatable
@@ -56,18 +56,18 @@ class GamesController < ApplicationController
             if winner? computer_board # see if the computer won
               @game.update(game_params.merge!({won: false}))
               flash[:success] = 'Computer Wins!'
-              render :show
+              render :show and return
             end
           end
           render :edit
         end
       else
         flash[:error] = 'There is a problem updating the game'
-        render :edit
+        render :edit and return
       end
     else
       flash[:error] = 'Choose an empty column.'
-      render :edit
+      redirect_to :edit_game and return
     end
   end
 
