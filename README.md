@@ -1,7 +1,8 @@
 # TODO
 
 ## for Primary Game Play
-* handle full columns (right now trying to drop into a full column results in an error. instead the db update should fail and the user should get a message telling her to chose a different column. If the computer chooses a full column no message needs to show but it should be forced to try again until it picks a good one. it's probably easiest to handle this in the controller)
+* ~handle full columns (right now trying to drop into a full column results in an error. instead the db update should fail and the user should get a message telling her to chose a different column. If the computer chooses a full column no message needs to show but it should be forced to try again until it picks a good one. it's probably easiest to handle this in the controller)~
+* new fun bug uncovered!!! -- When the computer wins it gets real mad about the render :edit
 * get diagonal winner
 * decide if I'm going to use the delete feature. Tear it out if not.
 * unit tests

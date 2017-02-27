@@ -1,5 +1,9 @@
 <h4>Computer is red player. You are the black player. Select which column you'd like to drop your piece into.</h4>
 
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
+
 <div class="game_board">
   <% @game.board.each_index do |i| %>
     <ul class="columns">
