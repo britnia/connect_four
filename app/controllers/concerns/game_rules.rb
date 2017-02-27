@@ -21,6 +21,5 @@ module Concerns::GameRules
   def connect_four_by_diagonal? board
     #get all the diagonals into a map
     #do connect four by column on the map
-
   end
 end
