@@ -37,7 +37,7 @@ class GamesController < ApplicationController
       # user turn
       if @game.update(game_params.merge!({current_player: 'b'}))
         flash[:success] = 'Game updated successfully'
-        @game = Game.find(params[:id])
+        fetch_current_game
         # see if user won
         if winner? @game.board
           @game.update(game_params.merge!({won: true}))
@@ -51,7 +51,8 @@ class GamesController < ApplicationController
           end # drop computer piece
           if @game.update(game_params.merge!({column: computer_column, current_player: 'r'}))
             flash[:success] = 'Game updated successfully'
-            computer_board = Game.find(params[:id]).board
+            fetch_current_game
+            computer_board = @game.board
             if winner? computer_board # see if the computer won
               @game.update(game_params.merge!({won: false}))
               flash[:success] = 'Computer Wins!'
