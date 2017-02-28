@@ -22,16 +22,16 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    fetch_current_game
   end
 
   def edit
-    @game = Game.find(params[:id])
+    fetch_current_game
   end
 
 #TODO DRY up this update block
   def update
-    @game = Game.find(params[:id])
+    fetch_current_game
     #check if column can be dropped into
     if updatable_column? @game.board, game_params['column']
       # user turn
@@ -44,7 +44,7 @@ class GamesController < ApplicationController
           flash[:success] = 'Winner!'
           render :show and return
         else #if the the user didnt win its the computer's turn
-          @game = Game.find(params[:id])
+          fetch_current_game
           computer_column = rand(7) #make sure the column the computer chose is updatable
           until updatable_column? @game.board, computer_column do
             computer_column = rand(7)
@@ -71,7 +71,7 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    @game = Game.find(params[:id])
+    fetch_current_game
     if @game.delete
       flash[:success] = 'Game deleted successfully'
       redirect_to root_path
@@ -88,5 +88,9 @@ private
 
   def updatable_column? board, column
     board[column.to_i].include? 'e'
+  end
+
+  def fetch_current_game
+    @game = Game.find(params[:id])
   end
 end
