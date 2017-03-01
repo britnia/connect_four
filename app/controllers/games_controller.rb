@@ -35,16 +35,13 @@ class GamesController < ApplicationController
     turn 'b'
     fetch_current_game
     if winner? @game.board
-      winner_actions 'b'
-      render :show and return
+      winner_actions 'b' and return
     end
-    if @game.won.nil?
-      turn 'r'
-      fetch_current_game
-      if winner? @game.board
-        winner_actions 'r'
-        render :show and return
-      end
+    fetch_current_game
+    turn 'r'
+    fetch_current_game
+    if winner? @game.board
+      winner_actions 'r' and return
     end
     render :edit
   end
@@ -62,7 +59,7 @@ class GamesController < ApplicationController
 
 private
   def game_params
-    params.require(:game).permit(:player, :board, :column, :current_player)
+    params.require(:game).permit(:player, :board , :won, :column, :current_player)
   end
 
   def updatable_column? board, column
@@ -98,6 +95,7 @@ private
       @game.update({won: false})
       flash[:success] = 'Computer wins!'
     end
+    render :show
   end
 
   def full_column_error
@@ -107,6 +105,6 @@ private
 
   def not_updated_error
     flash[:error] = 'There is a problem updating the game'
-    render :edit and return
+    render :edit
   end
 end

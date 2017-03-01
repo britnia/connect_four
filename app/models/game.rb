@@ -18,6 +18,7 @@ class Game < ApplicationRecord
    end
 
    def drop_piece
+     return unless self.current_player
      working_board = self.board
      col = self.column.to_i
      self.board = working_board[col].each_index do |i|
