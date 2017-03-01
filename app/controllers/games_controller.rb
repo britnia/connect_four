@@ -36,14 +36,15 @@ class GamesController < ApplicationController
     fetch_current_game
     if winner? @game.board
       winner_actions 'b'
-      redirect_to :game and return
+      render :show and return
     end
-
-    turn 'r'
-    fetch_current_game
-    if winner? @game.board
-      winner_actions 'r'
-      redirect_to :game and return
+    if @game.won.nil?
+      turn 'r'
+      fetch_current_game
+      if winner? @game.board
+        winner_actions 'r'
+        render :show and return
+      end
     end
     render :edit
   end
@@ -91,10 +92,10 @@ private
 
   def winner_actions player
     if player == 'b'
-      @game.update(game_params.merge!({won: true}))
+      @game.update({won: true})
       flash[:success] = 'Winner!'
     else
-      @game.update(game_params.merge!({won: false}))
+      @game.update({won: false})
       flash[:success] = 'Computer wins!'
     end
   end
