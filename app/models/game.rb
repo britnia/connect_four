@@ -28,6 +28,5 @@ class Game < ApplicationRecord
                     end
                     working_board
                   end
-    puts self.board
    end
 end
