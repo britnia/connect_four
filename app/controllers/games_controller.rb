@@ -32,16 +32,13 @@ class GamesController < ApplicationController
   def update
     fetch_current_game
     return full_column_error unless updatable_column? @game.board, game_params['column']
-    turn 'b'
-    fetch_current_game
-    if winner? @game.board
-      winner_actions 'b' and return
-    end
-    fetch_current_game
-    turn 'r'
-    fetch_current_game
-    if winner? @game.board
-      winner_actions 'r' and return
+    ['b','r'].each do |p|
+      turn p
+      fetch_current_game
+      if winner? @game.board
+        winner_actions p and return
+      end
+      fetch_current_game if p == 'b'
     end
     render :edit
   end
