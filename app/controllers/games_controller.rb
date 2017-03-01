@@ -29,46 +29,23 @@ class GamesController < ApplicationController
     fetch_current_game
   end
 
-#TODO DRY up this update block
   def update
     fetch_current_game
-    #check if column can be dropped into
-    if updatable_column? @game.board, game_params['column']
-      # user turn
-      if @game.update(game_params.merge!({current_player: 'b'}))
-        flash[:success] = 'Game updated successfully'
-        fetch_current_game
-        # see if user won
-        if winner? @game.board
-          @game.update(game_params.merge!({won: true}))
-          flash[:success] = 'Winner!'
-          render :show and return
-        else #if the the user didnt win its the computer's turn
-          fetch_current_game
-          computer_column = rand(7) #make sure the column the computer chose is updatable
-          until updatable_column? @game.board, computer_column do
-            computer_column = rand(7)
-          end # drop computer piece
-          if @game.update(game_params.merge!({column: computer_column, current_player: 'r'}))
-            flash[:success] = 'Game updated successfully'
-            fetch_current_game
-            computer_board = @game.board
-            if winner? computer_board # see if the computer won
-              @game.update(game_params.merge!({won: false}))
-              flash[:success] = 'Computer Wins!'
-              render :show and return
-            end
-          end
-          render :edit
-        end
-      else
-        flash[:error] = 'There is a problem updating the game'
-        render :edit and return
-      end
-    else
-      flash[:error] = 'Choose an empty column.'
-      redirect_to :edit_game and return
+    return full_column_error unless updatable_column? @game.board, game_params['column']
+    turn 'b'
+    fetch_current_game
+    if winner? @game.board
+      winner_actions 'b'
+      redirect_to :game and return
     end
+
+    turn 'r'
+    fetch_current_game
+    if winner? @game.board
+      winner_actions 'r'
+      redirect_to :game and return
+    end
+    render :edit
   end
 
   def destroy
@@ -93,5 +70,42 @@ private
 
   def fetch_current_game
     @game = Game.find(params[:id])
+  end
+
+  def computer_column
+    computer_column = rand(7)
+    until updatable_column? @game.board, computer_column do
+      computer_column = rand(7)
+    end
+    computer_column
+  end
+
+  def turn player
+    if player == 'b'
+      @game.update(game_params.merge!({current_player: 'b'}))
+    else
+      @game.update(game_params.merge!({column: computer_column, current_player: 'r'}))
+    end
+    flash[:success] = 'Game updated successfully'
+  end
+
+  def winner_actions player
+    if player == 'b'
+      @game.update(game_params.merge!({won: true}))
+      flash[:success] = 'Winner!'
+    else
+      @game.update(game_params.merge!({won: false}))
+      flash[:success] = 'Computer wins!'
+    end
+  end
+
+  def full_column_error
+    flash[:error] = 'Choose an empty column.'
+    redirect_to :edit_game
+  end
+
+  def not_updated_error
+    flash[:error] = 'There is a problem updating the game'
+    render :edit and return
   end
 end
