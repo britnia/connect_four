@@ -14,6 +14,7 @@
 * controller concern tests
 * test for drop piece method
 * handle a tie game
+* DRY up view with a partial for the game board
 
 ## Give computer more brains
 * Have computer try to block/win instead of just picking a random column
