@@ -12,7 +12,7 @@
     <% else %>
       <% game_status = "In Progress" %>
     <% end %>
-    <% game_display_name = "Game ##{game.id}. Player: #{game.player} Status: #{game_status}" %>
+    <% game_display_name = "Game ##{game.id}.   Player: #{game.player}    Status: #{game_status}" %>
     <li>
       <%= link_to(game_display_name, game_path(game.id)) %>
     </li>

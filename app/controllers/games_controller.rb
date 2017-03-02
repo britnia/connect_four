@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
-      flash[:success] = "New game for #{params[:player]} created successfully"
+      flash[:success] = "New game for #{game_params['player']} created successfully"
       render :edit
     else
       flash[:error] = 'There was a problem creating the game'

@@ -17,11 +17,6 @@
 * model test
 * move game controller helper methods to a concern
 
-## Petty things because I'm a perfectionist
-* pretty up the buttons
-* fix alignment on index page (the list is centered on itself but not on the header/button)
-* make the font bigger and the board smaller
-
 ## Give computer more brains
 * Have computer try to block/win instead of just picking a random column
 
