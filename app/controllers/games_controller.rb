@@ -43,17 +43,6 @@ class GamesController < ApplicationController
     render :edit
   end
 
-  def destroy
-    fetch_current_game
-    if @game.delete
-      flash[:success] = 'Game deleted successfully'
-      redirect_to root_path
-    else
-      flash[:error] = 'There is a problem deleting the game'
-      render :show
-    end
-  end
-
 private
   def game_params
     params.require(:game).permit(:player, :board , :won, :column, :current_player)
