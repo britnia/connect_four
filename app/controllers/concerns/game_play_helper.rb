@@ -1,5 +1,4 @@
 module Concerns::GamePlayHelper
-
   def updatable_column? board, column
     board[column.to_i].include? 'e'
   end

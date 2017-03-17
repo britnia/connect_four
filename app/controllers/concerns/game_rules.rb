@@ -3,7 +3,7 @@ module Concerns::GameRules
     connect_four_by_row?(board) || connect_four_by_column?(board) || connect_four_by_diagonal?(board)
   end
 
-private
+  private
 
   def connect_four_by_column? board
     board.each do |column|
@@ -33,6 +33,5 @@ private
       [board[6][1],board[5][2],board[4][3],board[3][4],board[2][5]],
       [board[6][2],board[5],[3],board[4][4],board[3][5]]
     ]
-
   end
 end

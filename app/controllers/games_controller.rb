@@ -44,7 +44,7 @@ class GamesController < ApplicationController
     render :edit
   end
 
-private
+  private
   def game_params
     params.require(:game).permit(:player, :board , :won, :column, :current_player)
   end
