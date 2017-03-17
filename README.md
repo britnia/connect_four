@@ -11,11 +11,10 @@
 
 # Development ToDos
 ## for Primary Game Play
-* decide if I'm going to use the delete feature. Tear it out if not.
-* unit tests
-* controller tests
-* model test
-* move game controller helper methods to a concern
+* controller concern tests
+* test for drop piece method
+* handle a tie game
+* DRY up view with a partial for the game board
 
 ## Give computer more brains
 * Have computer try to block/win instead of just picking a random column
