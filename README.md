@@ -11,9 +11,9 @@
 
 # Development ToDos
 ## for Primary Game Play
-* controller concern tests
-* test for drop piece method
-* handle a tie game
+* Controller concern tests
+* Test for drop piece method
+* Handle a tie game
 * DRY up view with a partial for the game board
 
 ## Give computer more brains
