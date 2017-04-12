@@ -8,18 +8,4 @@
 4. Migrate the database `$ rails db:migrate`
 5. Start up the server `$ rails s`
 6. Navigate to http://localhost:3000 in your browser and follow the onscreen instructions.
-
-# Development ToDos
-## for Primary Game Play
-* Controller concern tests
-* Test for drop piece method
-* Handle a tie game
-* DRY up view with a partial for the game board
-
-## Give computer more brains
-* Have computer try to block/win instead of just picking a random column
-
-## For leaderboard feature
-* Create player model to persist win/loss tally
-* Show leaderboard
-* Computer is also a player
+7. See github issue tracker for items that need attention.
